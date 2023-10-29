@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ElecMain</title>
+</head>
+<body>
+<h1>Elec Main</h1>
+	<button id = "btnElecDetail">Elec 상세</button>
+	<button id = "btnElecList">Elec 목록</button>
+	<button id = "btnElecInsert">Elec 등록</button>
+	<button id = "btnElecDelete">Elec 삭제</button>
+
+  <%-- 페이지만의 내용 --%>
+    <div class="container p-4">
+    
+      <h2>전자기기 정보 등록</h2>
+      <form id="registForm" action="/elecInsert" method="post">
+          <input type="hidden" name="action" value="regist">
+        <div class="form-group">
+          <label for="elecCode">고유번호</label>
+          <input type="text" class="form-control" id="elecCode" name="elecCode" placeholder="고유번호 입력">
+        </div>
+        <div class="form-group">
+          <label for="model">모델명</label>
+          <input type="text" class="form-control" id="model" name="model" placeholder="모델명 입력">
+        </div>
+           <div class="form-group">
+          <label for="type">종류</label>
+            <select class="form-select" name="type">
+                <option value="휴대폰" selected>휴대폰</option>
+                <option value="태블릿">태블릿</option>
+                <option value="노트북">노트북</option>
+                <option value="스마트워치">스마트워치</option>
+            </select>
+        </div>
+        <div class="form-group">
+          <label for="price">가격</label>
+          <input type="number" class="form-control" id="price" name="price" placeholder="가격 입력" >
+        </div>
+           <div class="form-group">
+          <label for="company">제조사</label>
+          <input type="text" class="form-control" id="company" name="company" placeholder="제조사 입력" >
+        </div>
+
+              <button type="submit" class="btn btn-primary" id="regist">등록</button>
+        <!--  <a class="btn btn-secondary" href="${root}/electronics?action=list" >취소</a>
+       -->
+      </form>
+    
+    
+    </div>
+    
+    <script>
+    	window.onload.href = 'M'
+    
+    </script>
+
+<script>
+	window.onload = function(){
+
+	       
+	       let elecInsertData = new URLSearchParams({
+	    	   elecCode: 'QWER1234',
+	            model:'맥북',
+	            type:'노트북',
+	            company:'애플',
+	            price:5000000
+	        });
+	       
+	       
+		document.querySelector("#btnElecDetail").onclick = async function(){
+			alert(1);
+			//비동기 요청
+			try{
+				let response = await fetch('/elecDetail/ios-2655');
+				let data = await response.json();
+				
+				//data로 이후 비동기 처리
+				console.log(data);
+			}catch(error){
+				console.error(error);
+			}
+		}
+		document.querySelector("#btnElecList").onclick = async function(){
+			alert(1);
+			//비동기 요청
+			try{
+				let response = await fetch('/elecList');
+				let data = await response.json();
+				
+				//data로 이후 비동기 처리
+				console.log(data);
+			}catch(error){
+				console.error(error);
+			}
+		}
+		
+		document.querySelector("#btnElecInsert").onclick = async function(){
+			alert(1);
+			//비동기 요청
+			//post로 전송할 데이터 준비
+			//post 전송 www-urlencoded
+			
+			let fecthOptions={
+					method:'POST',
+					body:elecInsertData
+			}
+			
+			try{
+				let response = await fetch('/elecInsert',fecthOptions);
+				let data = await response.json();
+				
+				//data로 이후 비동기 처리
+				console.log(data);
+			}catch(error){
+				console.error(error);
+			}
+		}
+		
+		
+		document.querySelector("#btnElecDelete").onclick = async function(){
+			alert(1);
+			//비동기 요청
+			try{
+				let response = await fetch('/elecDelete/ios-2655');
+				let data = await response.json();
+				
+				//data로 이후 비동기 처리
+				console.log(data);
+			}catch(error){
+				console.error(error);
+			}
+		}
+
+	}
+	
+	
+	
+</script>
+</body>
+</html>

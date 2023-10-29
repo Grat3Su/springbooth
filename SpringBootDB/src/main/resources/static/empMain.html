@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>EmpMain</title>
+</head>
+<body>
+<h1>Emp Main</h1>
+	<button id = "btnEmpDetail">Emp 상세</button>
+	<button id = "btnEmpList">Emp 목록</button>
+	<button id = "btnEmpInsert">Emp 등록</button>
+	<button id = "btnEmpUpdate">Emp 수정</button>
+	<button id = "btnEmpDelete">Emp 삭제</button>
+	
+	<button id = "btnEmpInsertJson">Emp json 등록</button>
+
+
+<script>
+	window.onload = function(){
+
+	       let empUpdateData = new URLSearchParams({
+	            employeeId:4,
+	            firstName:'길동2',
+	            lastName:'사2',
+	            email:'sa2@gildong.com',
+	            hireDate:'2023-04-06'
+	        });
+	       let empInsertData = new URLSearchParams({
+	            employeeId:4,
+	            firstName:'길동2',
+	            lastName:'사2',
+	            email:'sa2@gildong.com',
+	            hireDate:'2023-04-06'
+	        });
+	       
+	       
+		document.querySelector("#btnEmpDetail").onclick = async function(){
+			alert(1);
+			//비동기 요청
+			try{
+				let response = await fetch('/empDetail/2');
+				let data = await response.json();
+				
+				//data로 이후 비동기 처리
+				console.log(data);
+			}catch(error){
+				console.error(error);
+			}
+		}
+		document.querySelector("#btnEmpList").onclick = async function(){
+			alert(1);
+			//비동기 요청
+			try{
+				let response = await fetch('/empList');
+				let data = await response.json();
+				
+				//data로 이후 비동기 처리
+				console.log(data);
+			}catch(error){
+				console.error(error);
+			}
+		}
+		
+		document.querySelector("#btnEmpInsert").onclick = async function(){
+			alert(1);
+			//비동기 요청
+			//post로 전송할 데이터 준비
+			//post 전송 www-urlencoded
+			let urlParams = new URLSearchParams({
+				employeeId:5,
+				firstName:'길동',
+				lastName:'오',
+				email:'aksdio@aiosd.aspdj',
+				hireDate:'2023-10-24'
+			});
+			
+			let fecthOptions={
+					method:'POST',
+					body:urlParams
+			}
+			
+			try{
+				let response = await fetch('/empInsert',fecthOptions);
+				let data = await response.json();
+				
+				//data로 이후 비동기 처리
+				console.log(data);
+			}catch(error){
+				console.error(error);
+			}
+		}
+		document.querySelector("#btnEmpInsertJson").onclick = async function(){
+			alert(1);
+			//비동기 요청
+			//post로 전송할 데이터 준비
+			//post 전송 www-urlencoded
+			let fecthOptions={
+					method:'POST',
+					headers: {
+						'Content-Type':'application/json'
+					},
+					body: JSON.stringify(empInsertData)
+			}
+			
+			try{
+				let response = await fetch('/empInsertJSON',fecthOptions);
+				let data = await response.json();
+				
+				//data로 이후 비동기 처리
+				console.log(data);
+			}catch(error){
+				console.error(error);
+			}
+		}
+		
+		       
+		       
+		document.querySelector("#btnEmpUpdate").onclick = async function(){
+			alert(1);
+			//비동기 요청
+			//post로 전송할 데이터 준비
+			//post 전송 www-urlencoded
+			let urlParams = new URLSearchParams({
+				employeeId:0,
+				firstName:'길동2',
+				lastName:'오2',
+				email:'aksdio@aiosd.aspdj',
+				hireDate:'2023-10-24'
+			});
+			
+			
+			let fecthOptions={
+					method:'POST',
+					body: new URLSearchParams(empUpdateData)
+			}
+			
+			try{
+				let response = await fetch('/empUpdate',fecthOptions);
+				let data = await response.json();
+				
+				//data로 이후 비동기 처리
+				console.log(data);
+			}catch(error){
+				console.error(error);
+			}
+		}
+		
+		document.querySelector("#btnEmpDelete").onclick = async function(){
+			alert(1);
+			//비동기 요청
+			try{
+				let response = await fetch('/empDelete/5');
+				let data = await response.json();
+				
+				//data로 이후 비동기 처리
+				console.log(data);
+			}catch(error){
+				console.error(error);
+			}
+		}
+
+	}
+	
+</script>
+</body>
+</html>
