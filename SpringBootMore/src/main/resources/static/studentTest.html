@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>student 관리</h1>
+
+	<hr>
+	<table>
+		<thead >
+			<tr>
+				<td>studentID</td>
+				<td>StudentNm</td>
+				<td>Email</td>
+				<td>Phone</td>				
+			</tr>
+			
+		</thead>
+		<tbody id = "tbodyStudent"></tbody>
+	</table>
+
+	<hr>
+	<form>
+		<table>
+			<tbody >
+				<tr>
+					<td>studentNM</td>
+					<td><input type="text" name="studentNm" id="inputStudentNm"></td>
+				</tr>
+				<tr>
+					<td>Email</td>
+					<td><input type="text" name="email" id="inputStudentEmail"></td>
+				</tr>
+				<tr>
+					<td>Phone</td>
+					<td><input type="text" name="phone" id="inputStudentPhone"></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<div style="border: 1px; margin: auto; text-align: center">
+		<button id="btnInsert">등록</button>
+		<button id="btnUpdate">수정</button>
+		<button id="btndelete">삭제</button>
+		<button id="btnClean">초기화</button>
+	</div>
+	
+	<script>
+	var CURRENT_ID;//현재 조회되고 있는 학생 key
+	
+    window.onload = function(){
+        
+        listStudent();
+        
+        //버튼 이벤트 행들러
+        document.querySelector("#btnInsert").onclick = insertStudent;//function 호출
+        document.querySelector("#btnUpdate").onclick = updateStudent;//function 호출
+        document.querySelector("#btndelete").onclick = deleteStudent;//function 호출
+        document.querySelector("#btnClean").onclick = clear;//function 호출
+    }
+    
+    async function listStudent() {
+        // 비동기 요청 가능
+        try {
+            let response = await fetch('/students');//default : get
+            let data = await response.json();
+            // data로 이후 비동기 처리 결과 
+            makeListHtml(data);
+            console.log(data);
+        } catch(error) {
+            console.error(error);
+        }
+    }
+    
+    function makeListHtml(list){
+    	let listHtml = ``;
+    	list.forEach(el => {
+    		listHtml+=`<tr style ="cursor:pointer" data-studentId = ${el.studentId}><td>${el.studentId}</td><td>${el.studentNm}</td><td>${el.email}</td><td>${el.phone}</td></tr>`
+    	});
+    	document.querySelector("#tbodyStudent").innerHTML = listHtml;
+    	
+    	makeListHtmlEventHandler();
+    }
+    
+    function makeListHtmlEventHandler(){//자손인 tr
+    	document.querySelectorAll("#tbodyStudent tr").forEach(el=> {
+    		el.onclick = function(){
+    			let studentId = this.getAttribute("data-studentId");
+    			detailStudent(studentId);
+    		}
+    	})
+    }
+    
+    async function detailStudent(studentId) {
+    	let url = `/students/`+studentId
+    	try {
+            let response = await fetch(url);
+            let data = await response.json();
+            // data로 이후 비동기 처리 결과 
+            console.log(data);
+            makeDetailHtml(data);
+        } catch(error) {
+            console.error(error);
+        }
+    }
+    
+    function makeDetailHtml(detail){
+    	CURRENT_ID = detail.studentId;
+    	
+    	document.querySelector("#inputStudentNm").value = detail.studentNm;
+    	document.querySelector("#inputStudentEmail").value = detail.email;
+    	document.querySelector("#inputStudentPhone").value = detail.phone;
+    }
+	
+    function clear(){
+    	document.querySelector("#inputStudentNm").value = "";
+    	document.querySelector("#inputStudentEmail").value = "";
+    	document.querySelector("#inputStudentPhone").value = "";
+    }
+    
+    async function insertStudent(studentId) {
+    	let student={
+    		studentNm : document.querySelector("#inputStudentNm").value,
+    		email : document.querySelector("#inputStudentEmail").value,
+    		phone : document.querySelector("#inputStudentPhone").value
+    	}
+    	let urlParams = new URLSearchParams(student);// www - urlencoded
+    	
+    	let url = `/students/`;
+    	
+    	let fetchOptions={
+    			method:"POST",
+    			body:urlParams
+    	}
+    	
+    	try {
+            let response = await fetch(url, fetchOptions);
+            let data = await response.json();
+            // data로 이후 비동기 처리 결과 
+            console.log(data);
+            listStudent();
+        } catch(error) {
+            console.error(error);
+        }
+    }
+    
+    
+    async function updateStudent(studentId) {
+    	let student={
+        		studentId : CURRENT_ID,
+        		studentNm : document.querySelector("#inputStudentNm").value,
+        		email : document.querySelector("#inputStudentEmail").value,
+        		phone : document.querySelector("#inputStudentPhone").value
+        	}
+        	let urlParams = new URLSearchParams(student);// www - urlencoded
+        	
+        	let url = `/students/${CURRENT_ID}`;
+        	
+        	let fetchOptions={
+        			method:"PUT",
+        			body:urlParams
+        	}
+        	
+        	try {
+                let response = await fetch(url, fetchOptions);
+                let data = await response.json();
+                // data로 이후 비동기 처리 결과 
+                console.log(data);
+                listStudent();
+                clear();
+            } catch(error) {
+                console.error(error);
+            }
+    }
+    async function deleteStudent(studentId) {
+    	let url = `/students/${CURRENT_ID}`;
+
+        	let fetchOptions={
+        			method:"DELETE"
+        	}
+        	
+        	try {
+                let response = await fetch(url, fetchOptions);
+                let data = await response.json();
+                // data로 이후 비동기 처리 결과 
+                console.log(data);
+                listStudent();
+                clear();
+            } catch(error) {
+                console.error(error);
+            }
+    }
+    
+    
+    
+    
+	</script>
+	
+	
+</body>
+</html>

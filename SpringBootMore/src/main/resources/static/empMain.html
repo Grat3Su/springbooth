@@ -20,18 +20,16 @@
 	window.onload = function(){
 
 	       let empUpdateData = new URLSearchParams({
-	            employeeId:4,
-	            firstName:'길동2',
-	            lastName:'사2',
-	            email:'sa2@gildong.com',
-	            hireDate:'2023-04-06'
+	    	   studentId:4,
+	    	   studentNm:'su',
+	            email:'su@suuu.com',
+	            phone:'010-3345-6373'
 	        });
 	       let empInsertData = new URLSearchParams({
-	            employeeId:4,
-	            firstName:'길동2',
-	            lastName:'사2',
+	    	   studentId:4,
+	    	   studentNm:'su',
 	            email:'sa2@gildong.com',
-	            hireDate:'2023-04-06'
+	            phone:'010-3345-6373'
 	        });
 	       
 	       
@@ -39,7 +37,7 @@
 			alert(1);
 			//비동기 요청
 			try{
-				let response = await fetch('/emps/2');
+				let response = await fetch('/students/2');
 				let data = await response.json();
 				
 				//data로 이후 비동기 처리
@@ -52,7 +50,7 @@
 			alert(1);
 			//비동기 요청
 			try{
-				let response = await fetch('/emps');
+				let response = await fetch('/students');
 				let data = await response.json();
 				
 				//data로 이후 비동기 처리
@@ -68,11 +66,10 @@
 			//post로 전송할 데이터 준비
 			//post 전송 www-urlencoded
 			let urlParams = new URLSearchParams({
-				employeeId:4,
-				firstName:'길동',
-				lastName:'오',
-				email:'aksdio@aiosd.aspdj',
-				hireDate:'2023-10-24'
+		    	   studentId:4,
+		    	   studentNm:'su',
+		            email:'sa2@gildong.com',
+		            phone:'010-3345-6373'
 			});
 			
 			let fecthOptions={
@@ -81,7 +78,7 @@
 			}
 			
 			try{
-				let response = await fetch('/emps',fecthOptions);
+				let response = await fetch('/students',fecthOptions);
 				let data = await response.json();
 				
 				//data로 이후 비동기 처리
@@ -136,7 +133,7 @@
 			}
 			
 			try{
-				let response = await fetch('/emps/4',fecthOptions);
+				let response = await fetch('/students/4',fecthOptions);
 				let data = await response.json();
 				
 				//data로 이후 비동기 처리
@@ -155,7 +152,7 @@
 			
 			//비동기 요청
 			try{
-				let response = await fetch('/emps/4',fecthOptions);
+				let response = await fetch('/students/4',fecthOptions);
 				let data = await response.json();
 				
 				//data로 이후 비동기 처리

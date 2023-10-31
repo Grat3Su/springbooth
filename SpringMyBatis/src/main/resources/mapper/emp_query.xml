@@ -10,12 +10,9 @@
 		last_name, email, hiredate from emp </select>
 	<!-- return 이 primitive 이면 별도 기술 X -->
 	<insert id="empInsert"
-		parameterType="com.mycom.mybatis.dto.EmpDto"> insert into emp (employeeId, first_name, last_name,
-		email, hiredate) values( #{employeeId}, #{firstName}, #{lastName},
-		#{email}, #{hireDate}) </insert>
+		parameterType="com.mycom.mybatis.dto.EmpDto"> insert into emp (employeeId, first_name, last_name, email, hiredate) values( #{employeeId}, #{firstName}, #{lastName}, #{email}, #{hireDate}) </insert>
 	<update id="empUpdate"
-		parameterType="com.mycom.mybatis.dto.EmpDto"> update emp set first_name = #{firstName} ,last_name =
-		#{lastName} ,email = #{email} ,hiredate = #{hireDate} where employeeId
+		parameterType="com.mycom.mybatis.dto.EmpDto"> update emp set first_name = #{firstName} ,last_name =	#{lastName} ,email = #{email} ,hiredate = #{hireDate} where employeeId
 		= #{employeeId} </update>
 	<delete id="empDelete" parameterType="int"> delete from emp where employeeId = #{employeeId} </delete>
 	<resultMap type="com.mycom.mybatis.dto.EmpDto" id="empMap">
