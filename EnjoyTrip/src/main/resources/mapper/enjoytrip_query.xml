@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Board SQL -->
+<mapper namespace="com.mycom.enjoytrip.board.dao.BoardDao">
+    <select id="detail" parameterType="int"
+        resultType="com.mycom.enjoytrip.board.dto.BoardDto">
+        select bindex, userName, title, detail, time, userID
+        from board where bindex = #{bindex}
+    </select>
+
+    <!-- return 이 Collections 이면 board.dto 만 기술 -->
+    <select id="list" resultType="com.mycom.enjoytrip.board.dto.BoardDto">
+        select bindex, userName, title, detail, time, userID
+        from board
+    </select>
+
+    <!-- return 이 primitive 이면 별도 기술 X -->
+    <insert id="insert"
+        parameterType="com.mycom.enjoytrip.board.dto.BoardDto">
+        insert into board (bindex, userName, title, detail, userID, time)
+        values( #{bindex}, #{userName}, #{title}, #{detail}, #{userID}, #{now()})
+    </insert>
+
+    <update id="update"
+        parameterType="com.mycom.enjoytrip.board.dto.BoardDto">
+        update board
+        set title = #{title}
+	        ,detail = #{detail}	        
+        where bindex = #{bindex}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from board
+        where bindex = #{bindex}
+    </delete>
+</mapper>

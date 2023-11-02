@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+    <div id="app">
+	<h1>student 관리</h1>
+
+	<hr>
+	<table>
+		<thead >
+			<tr>
+				<td>studentID</td>
+				<td>StudentNm</td>
+				<td>Email</td>
+				<td>Phone</td>				
+			</tr>
+			
+		</thead>
+        <tbody>
+            <tr v-for = "(student, index) in studentList" v-bind:key="index" @click="detail(student.studentId)">
+                <td>{{student.studentId}} </td>
+                <td>{{student.studentNm}} </td>
+                <td>{{student.email}} </td>
+                <td>{{student.phone}} </td>
+            </tr>
+        </tbody>
+	</table>
+
+</div>
+	<!-- <hr>
+	<form>
+		<table>
+			<tbody >
+				<tr>
+					<td>studentNM</td>
+					<td><input type="text" name="studentNm" id="inputStudentNm"></td>
+				</tr>
+				<tr>
+					<td>Email</td>
+					<td><input type="text" name="email" id="inputStudentEmail"></td>
+				</tr>
+				<tr>
+					<td>Phone</td>
+					<td><input type="text" name="phone" id="inputStudentPhone"></td>
+				</tr>
+			</tbody>
+		</table>
+	</form> -->
+	<div style="border: 1px; margin: auto; text-align: center">
+		<button id="btnInsert">등록</button>
+		<button id="btnUpdate">수정</button>
+		<button id="btndelete">삭제</button>
+		<button id="btnClean">초기화</button>
+	</div>
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp, ref } = Vue;
+
+        createApp({
+          //객체가 만들어지고 리턴될것
+        setup() {
+            const studentList = ref([]);
+            const list = async () => {
+            try {
+                let response = await fetch("/students");
+                let data = await response.json();
+                studentList.value = data;
+            } catch (error) {
+                console.error(error);
+            }
+            };
+
+            const detail=function(studentId){
+                alert(studentId);
+            }
+            //detail();
+            list();
+
+            return {
+                studentList,
+                detail };
+            },
+        }).mount("#app");
+    </script>
+	
+	
+</body>
+</html>
