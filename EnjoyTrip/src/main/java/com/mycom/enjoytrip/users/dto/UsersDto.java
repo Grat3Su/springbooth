@@ -1,4 +1,4 @@
-package com.mycom.enjoytrip.board.dto;
+package com.mycom.enjoytrip.users.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BoardDto {
-	int boardId;
-	String boardTitle, boardDetail, userName, userId, boardTime, boardCategory;
+public class UsersDto {
+	int userId;
+	String email, password, name, profileImg;
 	
 }

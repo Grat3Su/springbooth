@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Users SQL -->
+<mapper namespace="com.mycom.enjoytrip.users.dao.UsersDao">
+    <select id="usersDetail" parameterType="int"
+        resultType="com.mycom.enjoytrip.users.dto.UsersDto">
+        select userId, email, password, name, profileImg
+        from users where userId = #{userId}
+    </select>
+
+    <select id="usersList" resultType="com.mycom.enjoytrip.users.dto.UsersDto">
+        select userId, email, password, name, profileImg
+        from users
+    </select>
+
+    <insert id="usersInsert"
+        parameterType="com.mycom.enjoytrip.users.dto.UsersDto">
+        insert into users (email, password, name, profileImg)
+        values( #{email}, #{password}, #{name}, #{profileImg})
+    </insert>
+
+	<!-- 비밀번호 변경 -->
+    <update id="usersUpdate"
+        parameterType="com.mycom.enjoytrip.users.dto.UsersDto">
+        update users
+        set password = #{password}   
+        where userId = #{userId}
+    </update>
+
+    <delete id="usersDelete" parameterType="int">
+        delete from users
+        where userId = #{userId}
+    </delete>
+</mapper>

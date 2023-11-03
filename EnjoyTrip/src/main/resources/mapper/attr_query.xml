@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Board SQL -->
+<mapper namespace="com.mycom.enjoytrip.attr.dao.AttrDao">
+	<select id="detail" parameterType="int"
+		resultType="com.mycom.enjoytrip.attr.dto.AttrDto">
+		SELECT ds.content_id, info.title, info.addr1, info.addr2, info.first_image,
+		ds.overview
+		FROM attraction_description ds, attraction_info info
+		where
+		ds.content_id = info.content_id
+		and info.content_id = #{contentId};
+	</select>
+
+	<!-- return 이 Collections 이면 board.dto 만 기술 -->
+	<select id="list" parameterType="int"
+		resultType="com.mycom.enjoytrip.attr.dto.AttrDto">
+		SELECT ds.content_id, info.title, info.addr1, info.addr2, info.first_image,
+		ds.overview
+		FROM attraction_description ds, attraction_info info
+		where
+		ds.content_id = info.content_id
+		order by ds.content_id asc
+		limit #{pageIdx}, 10;
+	</select>
+
+	<!-- return 이 primitive 이면 별도 기술 X -->
+	<insert id="insert"
+		parameterType="com.mycom.enjoytrip.attr.dto.AttrDto">
+
+		insert into attraction_info (content_id, title, addr1, addr2, first_image)
+		values(#{contentId}, #{title}, #{addr1}, #{addr2}, #{firstImage})
+
+	</insert>
+	<insert id="insert2"
+		parameterType="com.mycom.enjoytrip.attr.dto.AttrDto">
+		insert into attraction_description ( content_id, overview)
+		values(#{contentId}, #{overview});
+	</insert>
+
+
+	<update id="update"
+		parameterType="com.mycom.enjoytrip.attr.dto.AttrDto">
+		UPDATE attraction_info
+		SET title = #{title}, addr1 =
+		#{addr1}, addr2 = #{addr2}, first_Image=
+		#{firstImage}
+		WHERE content_id
+		= #{contentId};
+	</update>
+
+	<update id="update2"
+		parameterType="com.mycom.enjoytrip.attr.dto.AttrDto">
+		UPDATE attraction_description
+		set overview = #{overview}
+		where content_id = #{contentId};
+	</update>
+
+
+	<delete id="delete" parameterType="int">
+		delete FROM attraction_description
+		where content_id = #{contentId};
+	</delete>
+
+	<delete id="delete2" parameterType="int">
+		delete FROM attraction_info
+		where content_id = #{contentId};
+	</delete>
+</mapper>

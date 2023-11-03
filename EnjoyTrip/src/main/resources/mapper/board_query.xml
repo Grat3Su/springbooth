@@ -5,33 +5,33 @@
 <mapper namespace="com.mycom.enjoytrip.board.dao.BoardDao">
     <select id="detail" parameterType="int"
         resultType="com.mycom.enjoytrip.board.dto.BoardDto">
-        select bindex, userName, title, detail, time, userID
-        from board where bindex = #{bindex}
+        select boardId, boardTitle, boardDetail, boardTime, userId, userName, boardCategory
+        from board where boardId = #{boardId}
     </select>
 
     <!-- return 이 Collections 이면 board.dto 만 기술 -->
     <select id="list" resultType="com.mycom.enjoytrip.board.dto.BoardDto">
-        select bindex, userName, title, detail, time, userID
+        select boardId, boardTitle, boardDetail, boardTime, userId, userName, boardCategory
         from board
     </select>
 
     <!-- return 이 primitive 이면 별도 기술 X -->
     <insert id="insert"
         parameterType="com.mycom.enjoytrip.board.dto.BoardDto">
-        insert into board (bindex, userName, title, detail, userID, time)
-        values( #{bindex}, #{userName}, #{title}, #{detail}, #{userID}, #{now()})
+        insert into board ( boardTitle, boardDetail, boardTime, userId, userName, boardCategory)
+        values(#{boardTitle}, #{boardDetail}, now(), #{userId}, #{userName}, #{boardCategory})
     </insert>
 
     <update id="update"
         parameterType="com.mycom.enjoytrip.board.dto.BoardDto">
         update board
-        set title = #{title}
-	        ,detail = #{detail}	        
-        where bindex = #{bindex}
+        set boardTitle = #{boardTitle}
+	        ,boardDetail = #{boardDetail}	        
+        where boardId = #{boardId}
     </update>
 
     <delete id="delete" parameterType="int">
         delete from board
-        where bindex = #{bindex}
+        where boardId = #{boardId}
     </delete>
 </mapper>
