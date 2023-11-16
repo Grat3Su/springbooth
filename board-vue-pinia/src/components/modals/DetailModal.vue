@@ -1,6 +1,6 @@
 <template>
   <!-- Modal detail-->
-  <div class="modal fade" id="boardDetailModal">
+  <div class="modal fade" id="detailModal">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">

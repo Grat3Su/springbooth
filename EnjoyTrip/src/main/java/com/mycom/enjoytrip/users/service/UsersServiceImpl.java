@@ -42,5 +42,17 @@ public class UsersServiceImpl implements UsersService{
 		// TODO Auto-generated method stub
 		return dao.usersDelete(userId);
 	}
+	
+	@Override
+	public UsersDto login(UsersDto dto) {
+		System.out.println(dto);
+		UsersDto userDto = dao.login(dto.getEmail());
+		System.out.println(userDto);
+		if(userDto!=null && userDto.getPassword().equals(dto.getPassword())) {
+			userDto.setPassword(null);
+			return userDto;
+		}
+		return null;
+	}
 
 }

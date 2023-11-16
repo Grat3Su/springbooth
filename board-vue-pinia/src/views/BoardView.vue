@@ -38,11 +38,12 @@
     <update-modal></update-modal>
     <detail-modal></detail-modal>
 
-    <button class="btn btn-sm btn-primary" id="btnBoardInsertUI">글쓰기</button>
+    <button class="btn btn-sm btn-primary" @click="showInsertModal">글쓰기</button>
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue'
 //component
 import PaginationUI from '../components/PaginationUI.vue'
 import InsertModal from '../components/modals/InsertModal.vue'
@@ -55,8 +56,20 @@ import http from '@/common/axios.js'
 import { useBoardStore } from '../stores/boardStore'
 // import { useRouter } from 'vue-router'
 
+//bootstrap 객체 생성
+import { Modal } from 'bootstrap'
+
 const { boardStore, boardList } = useBoardStore()
 // const router = useRouter()
+let insertModal = null
+let updateModal = null
+let detailModal = null
+onMounted(() => {
+  insertModal = new Modal(document.getElementById('insertModal')) // relatedTarget
+  updateModal = new Modal(document.getElementById('updateModal')) // relatedTarget
+  detailModal = new Modal(document.getElementById('detailModal')) // relatedTarget
+})
 
+const showInsertModal = () => insertModal.show()
 boardList()
 </script>

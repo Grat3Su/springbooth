@@ -55,8 +55,8 @@
 import http from '@/common/axios.js'
 import notLoginProfileImageUrl from '/src/assets/noProfile.png'
 import { useRouter } from 'vue-router'
-
 import { useAuthStore } from '../stores/authStore'
+
 const { authStore, setLogin } = useAuthStore()
 const router = useRouter()
 

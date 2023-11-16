@@ -12,4 +12,16 @@
 		ORDER BY b.BOARD_ID DESC
 		LIMIT #{limit} OFFSET #{offset}
 	</select>
+	
+	<insert id="boardInsert" parameterType="com.mycom.myboard.board.dto.BoardDto">  useGeneratedKeys="true" keyProperty="boardId"
+
+	
+    INSERT INTO BOARD ( USER_SEQ, TITLE, CONTENT, REG_DT, READ_COUNT )
+                VALUES ( #{userSeq}, #{title}, #{content}, now(), 0 )
+</insert>
+
+<insert id="boardFileInsert" parameterType="com.mycom.myboard.board.dto.BoardFileDto">
+    INSERT INTO BOARD_FILE ( BOARD_ID, FILE_NAME, FILE_SIZE, FILE_CONTENT_TYPE, FILE_URL )
+                VALUES ( #{boardId}, #{fileName}, #{fileSize}, #{fileContentType}, #{fileUrl} )
+</insert>
 </mapper>

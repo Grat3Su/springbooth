@@ -11,4 +11,5 @@ public interface UsersService {
 	int usersInsert(UsersDto dto);
 	int usersUpdate(UsersDto dto);
 	int usersDelete(int userId);
+	UsersDto login(UsersDto userDto);
 }
