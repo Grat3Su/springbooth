@@ -15,4 +15,5 @@ public interface UsersDao {
 	int usersUpdate(UsersDto dto);
 	int usersDelete(int userId);
 	UsersDto login(String email);
+	UsersDto findUsers(String userEmail);
 }

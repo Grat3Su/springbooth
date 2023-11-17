@@ -57,6 +57,10 @@ import http from '@/common/axios.js'
 import { ref } from 'vue'
 import CKEditor from '@ckeditor/ckeditor5-vue'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import { useAuthStore } from '../../stores/authStore'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const ckeditor = CKEditor.component
 const editor = ClassicEditor
@@ -89,17 +93,27 @@ const boardInsert = async () => {
   }
   try {
     let { data } = await http.post('boards', formData, options)
+    console.log(data)
     if (data.result == 'login') {
       doLogout()
     } else {
       //등록 성공
+      alert('등록성공')
+      closeModal()
     }
   } catch (error) {
     console.log(error)
   }
 }
 
-const doLogout = () => {}
+const doLogout = () => {
+  useAuthStore.setLogout()
+  router.push('/login')
+}
+
+const emit = defineEmits(['call-parrent-insert'])
+
+const closeModal = () => emit('call-parrent-insert')
 </script>
 
 <style scoped>

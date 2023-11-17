@@ -24,10 +24,21 @@ public class UsersServiceImpl implements UsersService{
 		// TODO Auto-generated method stub
 		return dao.usersDetail(userId);
 		}
+	
+	//이메일로 유저가 있는지 확인하기
+	@Override
+	public UsersDto findUsers(String userEmail) {
+		// TODO Auto-generated method stub
+		return dao.findUsers(userEmail);
+	}
 
 	@Override
 	public int usersInsert(UsersDto dto) {
-		// TODO Auto-generated method stub
+		UsersDto user = dao.findUsers(dto.getEmail());
+		
+		if(user!=null) {
+			return -1;
+		}
 		return dao.usersInsert(dto);
 	}
 

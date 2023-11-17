@@ -11,6 +11,13 @@
         from users where userId = #{userId}
     </select>
 
+	<!-- 한 회원만 상세보기 이메일로 -->
+    <select id="findUsers" parameterType="string"
+        resultType="com.mycom.enjoytrip.users.dto.UsersDto">
+        select userId, email
+        from users where email = #{email}
+    </select>
+
 	<!-- 모든 회원 보기 -->
     <select id="usersList" resultType="com.mycom.enjoytrip.users.dto.UsersDto">
         select userId, email, password, name, profileImg
@@ -19,8 +26,9 @@
 
 	<!-- 아마 회원가입 -->
     <insert id="usersInsert"
-        parameterType="com.mycom.enjoytrip.users.dto.UsersDto">
-        insert into users (email, password, name, profileImg)
+        parameterType="com.mycom.enjoytrip.users.dto.UsersDto" useGeneratedKeys="true" keyProperty="userId">
+        
+        insert into users ( email, password, name, profileImg)
         values( #{email}, #{password}, #{name}, #{profileImg})
     </insert>
 

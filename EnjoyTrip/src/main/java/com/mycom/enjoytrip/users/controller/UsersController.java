@@ -39,7 +39,7 @@ public class UsersController {
 	}
 	
 	@PostMapping(value="/users")
-	public int insert(UsersDto dto){
+	public int insert(@RequestBody UsersDto dto){
 		return service.usersInsert(dto);
 	}
 	

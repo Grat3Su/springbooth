@@ -4,8 +4,8 @@
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router'
 import NavBar from './components/NavBar.vue'
+import { RouterView } from 'vue-router'
 import { useAuthStore } from './stores/authStore'
 
 const { authStore, setLogin } = useAuthStore()
