@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mycom.enjoytrip.attr.dao.AttrDao;
 import com.mycom.enjoytrip.attr.dto.AttrDto;
+import com.mycom.enjoytrip.attr.dto.LocDto;
 
 @Service
 public class AttrServiceImpl implements AttrService{
@@ -47,6 +48,30 @@ public class AttrServiceImpl implements AttrService{
 	public int delete(int contentId) {
 		dao.delete(contentId);
 		return dao.delete2(contentId);
+	}
+
+	@Override
+	public List<LocDto> sido() {
+		// TODO Auto-generated method stub
+		return dao.sido();
+	}
+
+	@Override
+	public List<LocDto> gugun(int sidoCode) {
+		// TODO Auto-generated method stub
+		return dao.gugun(sidoCode);
+	}
+
+	@Override
+	public List<AttrDto> sidoList(int sidoCode, int pageIdx) {
+		// TODO Auto-generated method stub
+		return dao.sidoList(sidoCode, pageIdx);
+	}
+
+	@Override
+	public List<AttrDto> gugunList(int sidoCode, int gugunCode, int pageIdx) {
+		// TODO Auto-generated method stub
+		return dao.gugunList(sidoCode, gugunCode, pageIdx);
 	}
 
 }

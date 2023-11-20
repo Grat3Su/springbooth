@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycom.enjoytrip.attr.dto.AttrDto;
+import com.mycom.enjoytrip.attr.dto.LocDto;
 import com.mycom.enjoytrip.attr.service.AttrService;
 
 @RestController
@@ -24,6 +25,30 @@ public class AttrController {
 	public List<AttrDto> list(@PathVariable int pageIdx){
 		List<AttrDto> list = service.list(pageIdx);
 		System.out.println(list);
+		return list;
+	}
+	
+	@GetMapping(value="attrs/sido")
+	public List<LocDto> sido(){
+		List<LocDto> list = service.sido();
+		return list;
+	}
+	
+	@GetMapping(value="attrs/gugun/{sidoCode}")
+	public List<LocDto> gugun(@PathVariable int sidoCode){
+		List<LocDto> list = service.gugun(sidoCode);
+		return list;
+	}
+	
+	@GetMapping(value="attrs/sidolist/{pageIdx}/{sidoCode}")
+	public List<AttrDto> sidoList(@PathVariable int pageIdx, @PathVariable int sidoCode){
+		List<AttrDto> list = service.sidoList(sidoCode, pageIdx);
+		return list;
+	}
+	
+	@GetMapping(value="attrs/gugunlist/{pageIdx}/{sidoCode}/{gugunCode}")
+	public List<AttrDto> gugunList(@PathVariable int pageIdx, @PathVariable int sidoCode, @PathVariable int gugunCode){
+		List<AttrDto> list = service.gugunList(sidoCode, gugunCode, pageIdx);
 		return list;
 	}
 	

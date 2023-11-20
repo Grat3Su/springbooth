@@ -5,21 +5,21 @@
 <mapper namespace="com.mycom.enjoytrip.board.dao.BoardDao">
     <select id="detail" parameterType="int"
         resultType="com.mycom.enjoytrip.board.dto.BoardDto">
-        select boardId, boardTitle, boardDetail, boardTime, userId, userName, boardCategory
+        select boardId, boardTitle, boardDetail, boardTime, userId, userName
         from board where boardId = #{boardId}
     </select>
 
     <!-- return 이 Collections 이면 board.dto 만 기술 -->
     <select id="list" resultType="com.mycom.enjoytrip.board.dto.BoardDto">
-        select boardId, boardTitle, boardDetail, boardTime, userId, userName, boardCategory
+        select boardId, boardTitle, boardDetail, boardTime, userId, userName
         from board
     </select>
 
     <!-- return 이 primitive 이면 별도 기술 X -->
     <insert id="insert"
         parameterType="com.mycom.enjoytrip.board.dto.BoardDto">
-        insert into board ( boardTitle, boardDetail, boardTime, userId, userName, boardCategory)
-        values(#{boardTitle}, #{boardDetail}, now(), #{userId}, #{userName}, #{boardCategory})
+        insert into board ( boardTitle, boardDetail, userId, userName)
+        values(#{boardTitle}, #{boardDetail}, #{userId}, #{userName})
     </insert>
 
     <update id="update"

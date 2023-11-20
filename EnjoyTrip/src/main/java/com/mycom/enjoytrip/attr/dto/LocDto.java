@@ -9,9 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AttrDto {
-	int contentId, sido, gugun;//, pageIdx;
-	String title, addr1, addr2, firstImage, overview;
-	
-	//ds.content_id, info.title, info.addr1, info.addr2, info.first_image, ds.overview
+public class LocDto {
+	int sidoCode, gugunCode;
+String sidoName, gugunName;
 }

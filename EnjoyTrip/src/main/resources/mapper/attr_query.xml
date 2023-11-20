@@ -14,16 +14,57 @@
 	</select>
 
 	<!-- return 이 Collections 이면 board.dto 만 기술 -->
-	<select id="list" parameterType="int"
+	<select id="list" parameterType="map"
 		resultType="com.mycom.enjoytrip.attr.dto.AttrDto">
 		SELECT ds.content_id, info.title, info.addr1, info.addr2, info.first_image,
-		ds.overview
+		ds.overview, info.sido_code, info.gugun_code
 		FROM attraction_description ds, attraction_info info
 		where
 		ds.content_id = info.content_id
 		order by ds.content_id asc
-		limit #{pageIdx}, 10;
+		limit #{pageIdx}, 30;
 	</select>
+	
+	<select id="sidolist" parameterType="map"
+		resultType="com.mycom.enjoytrip.attr.dto.AttrDto">
+		SELECT ds.content_id, info.title, info.addr1, info.addr2, info.first_image,
+		ds.overview, info.sido_code, info.gugun_code
+		FROM attraction_description ds, attraction_info info
+		where
+		ds.content_id = info.content_id
+		and info.sido_code = #{sidoCode} 
+		order by ds.content_id asc
+		limit #{pageIdx}, 30;
+	</select>
+	
+	<select id="gugunlist" parameterType="map"
+		resultType="com.mycom.enjoytrip.attr.dto.AttrDto">
+		SELECT ds.content_id, info.title, info.addr1, info.addr2, info.first_image,
+		ds.overview, info.sido_code, info.gugun_code
+		FROM attraction_description ds, attraction_info info
+		where
+		ds.content_id = info.content_id
+		and info.sido_code = #{sidoCode} 
+		and info.gugun_code = #{gugunCode} 
+		order by ds.content_id asc
+		limit #{pageIdx}, 30;
+	</select>
+	
+	<!-- sido -->
+	<select id="sido"
+		resultType="com.mycom.enjoytrip.attr.dto.LocDto">
+		SELECT sido_code, sido_name
+		FROM sido
+	</select>
+	
+	<!-- gugun-->
+	<select id="gugun" parameterType="int"
+		resultType="com.mycom.enjoytrip.attr.dto.LocDto">
+		SELECT gugun_code, gugun_name, sido_code
+		FROM gugun
+		where sido_code = #{sidoCode}
+	</select>
+	
 
 	<!-- return 이 primitive 이면 별도 기술 X -->
 	<insert id="insert"
